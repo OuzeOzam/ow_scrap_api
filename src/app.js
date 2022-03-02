@@ -23,7 +23,10 @@ app.get('/over', async (req, res) => {
   if (cacheTime && cacheTime > Date.now() - (1000 * 1000)) {
     return res.json(heroes);
   }
-  heroes = await owhero(await heroesNames());
+  //by Alex : .slice pour réduire le nombre de requetes
+  // heroes = await owhero((await heroesNames()).slice(1,3));
+  // heroes = await owhero(await heroesNames());
+  heroes = await owhero([{url: "https://overwatch.fandom.com/wiki/Zarya", name : "Zarya"}]);
   cacheTime = Date.now();
   res.json(heroes);
   console.log(heroes);
@@ -36,7 +39,7 @@ app.get('/over/:heroName', async (req, res) => {
   if (!heroes) {
     heroes = await owhero(await heroesNames());
   }
-  let filter = heroes.filter(d => d.description.name === req.params.heroName);
+  let filter = heroes.filter(d => d.name === req.params.heroName);
   if (!filter.length) {
     res.json('Not Found');
     return;

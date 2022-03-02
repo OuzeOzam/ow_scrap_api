@@ -6,7 +6,7 @@ async function heroesNames() {
     const heroes = await page.evaluate(() => {
         let heroesNames = [];
         let elements = document.querySelectorAll('.wikitable.sortable.jquery-tablesorter tbody tr td:nth-child(2) a:nth-child(2)');
-        for (element of elements) {
+        for (const element of elements) {
             heroesNames.push({
                 name: element.title,
                 url: element.href,
