@@ -43,11 +43,12 @@ async function owhero(heroesInformations) {
                         img: other.querySelector('div.summaryInfoAndImage > div:nth-child(1) > div.abilityImage > div:nth-child(2) > div > div > img').dataset.src,
                         abilitiesDetails: Array.prototype.map.call(thirds, third => {
                             let title = third.querySelector('div:nth-child(1) > b');
-                            let data = third.querySelector('div:nth-child(2)');
+                            let effect = third.querySelector('div:nth-child(2)');
                             return {
                                 title: title ? title.textContent : "Undefine",
                                 description: document.querySelector('div:nth-child(1) > b > span').title,
-                                data: data ? data.textContent : "Undefine",
+                                effect: effect ? effect.innerText.split('\n').map(effect => effect.match(/([0-9]+)[\- ]*([0-9]*)([a-zA-Z ]+)/)) : "Undefine",
+                                effectRaw: effect ? effect.innerText.split('\n') : "Undefine",
                             }
                         })
                     }
